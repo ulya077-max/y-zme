@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Havuz Kimyasalları İnfo-Rehber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .wave-bg {
+            background: linear-gradient(180deg, #06b6d4 0%, #3b82f6 100%);
+        }
+        .chemical-card {
+            transition: all 0.3s ease;
+        }
+        .chemical-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* Custom ranges for pH slider look */
+        .ph-scale {
+            background: linear-gradient(90deg, #ef4444 0%, #f97316 30%, #22c55e 50%, #f97316 70%, #8b5cf6 100%);
+            height: 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .ph-marker {
+            position: absolute;
+            top: -5px;
+            bottom: -5px;
+            width: 4px;
+            background-color: white;
+            border: 2px solid #1e293b;
+            left: 50%; /* 7.2-7.6 ideal range mockup */
+            transition: left 0.5s ease;
+        }
+        .water-texture {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Hero Section -->
+    <header class="wave-bg text-white pb-24 relative overflow-hidden">
+        <div class="water-texture absolute inset-0 w-full h-full opacity-30"></div>
+        <div class="container mx-auto px-6 pt-12 relative z-10">
+            <nav class="flex justify-between items-center mb-16">
+                <div class="text-2xl font-bold tracking-tight flex items-center gap-2">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    HavuzRehberi
+                </div>
+                <a href="#calculator" class="bg-white text-cyan-600 px-4 py-2 rounded-full font-semibold hover:bg-cyan-50 transition shadow-lg text-sm md:text-base">Dozaj Hesapla</a>
+            </nav>
+            
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-4 inline-block backdrop-blur-sm">Görsel Bakım Kılavuzu</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">Kristal Berraklığında Bir Havuzun Kimyası</h1>
+                <p class="text-lg md:text-xl text-cyan-100 mb-8">Sağlıklı ve temiz bir yüzme deneyimi için havuz kimyasallarını tanıyalım. Doğru denge, mükemmel sonuç.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#chemicals" class="bg-white text-cyan-600 px-8 py-3 rounded-lg font-bold hover:shadow-xl transition transform hover:-translate-y-1">Kimyasalları Keşfet</a>
+                    <a href="#safety" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white/10 transition">Güvenlik</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Curved Bottom -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="relative block w-[calc(100%+1.3px)] h-[80px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-slate-50"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Visual Dashboard: Ideal Values -->
+    <section class="py-12 -mt-12 relative z-20 container mx-auto px-6">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-5xl mx-auto border border-slate-100">
+            <h2 class="text-2xl font-bold text-center mb-8 text-slate-800">İdeal Değerler Göstergesi</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- pH Scale -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-bold text-slate-600">pH Değeri</span>
+                        <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded">İdeal: 7.2 - 7.6</span>
+                    </div>
+                    <div class="ph-scale w-full mb-2">
+                        <!-- Marker positioned at "Ideal" -->
+                        <div class="ph-marker" style="left: 55%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-slate-400 font-mono">
+                        <span>0 (Asidik)</span>
+                        <span>7 (Nötr)</span>
+                        <span>14 (Bazik)</span>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-2">Düşük pH gözleri yakar, yüksek pH klorun etkisini azaltır.</p>
+                </div>
+
+                <!-- Chlorine Scale -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-bold text-slate-600">Serbest Klor (ppm)</span>
+                        <span class="bg-cyan-100 text-cyan-800 text-xs font-bold px-2 py-1 rounded">İdeal: 1.0 - 3.0 ppm</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-4 mb-2 overflow-hidden relative">
+                        <!-- Gradient from low to high chlorine -->
+                        <div class="h-full absolute top-0 left-0" style="width: 100%; background: linear-gradient(90deg, #e2e8f0 0%, #22d3ee 30%, #0891b2 100%);"></div>
+                        <!-- Ideal Zone Marker -->
+                        <div class="absolute top-0 bottom-0 border-x-2 border-white/50 bg-white/20" style="left: 30%; width: 20%;"></div>
+                        <div class="absolute top-0 bottom-0 w-1 bg-slate-800" style="left: 40%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-slate-400 font-mono">
+                        <span>0 ppm</span>
+                        <span>1.5 ppm</span>
+                        <span>5.0+ ppm</span>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-2">Klor, sudaki bakteri ve virüsleri yok eden ana dezenfektandır.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chemicals Grid -->
+    <section id="chemicals" class="py-20 container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Temel Havuz Kimyasalları</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto">Her kimyasalın havuz ekosisteminde özel bir görevi vardır. İşte bilmeniz gereken "Muhteşem Beşli".</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Chemical 1: Chlorine -->
+            <div class="chemical-card bg-white rounded-xl p-6 border border-slate-100 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-100 rounded-bl-full -mr-4 -mt-4 opacity-50 group-hover:scale-110 transition"></div>
+                <div class="w-14 h-14 bg-cyan-500 rounded-xl flex items-center justify-center text-white mb-6 shadow-lg shadow-cyan-200">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Klor (Dezenfektan)</h3>
+                <p class="text-slate-500 mb-4 text-sm">Havuzun bağışıklık sistemidir. Bakteri, virüs ve mantarları yok eder. Yosun oluşumunu engeller.</p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs text-slate-600">
+                    <strong>Türleri:</strong> Sıvı, Toz (Granül), Tablet (Kombine).
+                </div>
+            </div>
+
+            <!-- Chemical 2: pH Reducer -->
+            <div class="chemical-card bg-white rounded-xl p-6 border border-slate-100 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-orange-100 rounded-bl-full -mr-4 -mt-4 opacity-50 group-hover:scale-110 transition"></div>
+                <div class="w-14 h-14 bg-orange-500 rounded-xl flex items-center justify-center text-white mb-6 shadow-lg shadow-orange-200">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">pH Düşürücü (pH-)</h3>
+                <p class="text-slate-500 mb-4 text-sm">Suyun asidite dengesini sağlar. pH 7.6'nın üzerindeyse klor çalışmaz ve su bulanıklaşır.</p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs text-slate-600">
+                    <strong>Etkisi:</strong> Cilt tahrişini ve kireçlenmeyi önler.
+                </div>
+            </div>
+
+            <!-- Chemical 3: Algaecide -->
+            <div class="chemical-card bg-white rounded-xl p-6 border border-slate-100 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-green-100 rounded-bl-full -mr-4 -mt-4 opacity-50 group-hover:scale-110 transition"></div>
+                <div class="w-14 h-14 bg-green-500 rounded-xl flex items-center justify-center text-white mb-6 shadow-lg shadow-green-200">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Yosun Önleyici</h3>
+                <p class="text-slate-500 mb-4 text-sm">Havuzun yeşile dönmesini engeller. Klorun yardımcısıdır ancak klorun yerini tutmaz.</p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs text-slate-600">
+                    <strong>Kullanım:</strong> Haftalık bakımda düzenli eklenir.
+                </div>
+            </div>
+
+            <!-- Chemical 4: Flocculant -->
+            <div class="chemical-card bg-white rounded-xl p-6 border border-slate-100 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-blue-100 rounded-bl-full -mr-4 -mt-4 opacity-50 group-hover:scale-110 transition"></div>
+                <div class="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center text-white mb-6 shadow-lg shadow-blue-200">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Çökeltici (Topaklayıcı)</h3>
+                <p class="text-slate-500 mb-4 text-sm">Filtrenin tutamadığı mikroskobik tozları birleştirip dibe çöktürür. Suyu parlatır.</p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs text-slate-600">
+                    <strong>İpucu:</strong> Kullandıktan sonra dip süpürgesi yapılmalıdır.
+                </div>
+            </div>
+
+            <!-- Chemical 5: pH Plus -->
+            <div class="chemical-card bg-white rounded-xl p-6 border border-slate-100 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-purple-100 rounded-bl-full -mr-4 -mt-4 opacity-50 group-hover:scale-110 transition"></div>
+                <div class="w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center text-white mb-6 shadow-lg shadow-purple-200">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">pH Yükseltici (pH+)</h3>
+                <p class="text-slate-500 mb-4 text-sm">Nadir kullanılır. Yağmur suyu gibi dış etkenlerle pH çok düşerse (asidik olursa) kullanılır.</p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs text-slate-600">
+                    <strong>Dikkat:</strong> pH 7.0 altındaysa tesisat paslanabilir.
+                </div>
+            </div>
+            
+             <!-- Chemical 6: Testing Kit -->
+             <div class="chemical-card bg-white rounded-xl p-6 border border-slate-100 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-slate-100 rounded-bl-full -mr-4 -mt-4 opacity-50 group-hover:scale-110 transition"></div>
+                <div class="w-14 h-14 bg-slate-600 rounded-xl flex items-center justify-center text-white mb-6 shadow-lg shadow-slate-200">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Test Kiti</h3>
+                <p class="text-slate-500 mb-4 text-sm">Ölçmeden kimyasal atmayın! Sıvı, tablet veya dijital test kitleri ile her gün ölçüm yapın.</p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs text-slate-600">
+                    <strong>Sıklık:</strong> Her sabah, kimyasal atmadan önce.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="py-16 bg-cyan-50 border-y border-cyan-100">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-3xl font-bold text-slate-800 mb-4">Pratik Dozaj Hesaplayıcı</h2>
+                    <p class="text-slate-600 mb-6">Havuzunuzun hacmini girin, günlük bakım veya şoklama için gereken tahmini kimyasal miktarını hesaplayalım.</p>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Havuz Hacmi (m³)</label>
+                        <div class="flex gap-4 mb-6">
+                            <input type="number" id="poolVolume" placeholder="Örn: 50" class="flex-1 border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none text-slate-800">
+                            <button onclick="calculateDosage()" class="bg-cyan-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-cyan-700 transition">Hesapla</button>
+                        </div>
+                        
+                        <div id="results" class="hidden space-y-4">
+                            <div class="p-4 bg-cyan-50 rounded-lg border border-cyan-200">
+                                <h4 class="font-bold text-cyan-800 mb-1">Günlük Klor İhtiyacı (%56 Granül)</h4>
+                                <p class="text-2xl font-bold text-cyan-600" id="chlorineResult">0 gr</p>
+                                <p class="text-xs text-cyan-600 mt-1">*Yaklaşık 2-3ppm için</p>
+                            </div>
+                            <div class="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                                <h4 class="font-bold text-orange-800 mb-1">pH Düşürücü (Toz)</h4>
+                                <p class="text-2xl font-bold text-orange-600" id="phResult">0 gr</p>
+                                <p class="text-xs text-orange-600 mt-1">*pH'ı 0.1 birim düşürmek için</p>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h4 class="font-bold text-green-800 mb-1">Yosun Önleyici</h4>
+                                <p class="text-2xl font-bold text-green-600" id="algaeResult">0 ml</p>
+                                <p class="text-xs text-green-600 mt-1">*Haftalık bakım dozu</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-4 italic">Not: Bu değerler yaklaşıktır. Ürün etiketindeki talimatlar ve test sonuçları esastır.</p>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/2">
+                    <div class="bg-slate-800 text-white p-8 rounded-2xl relative overflow-hidden">
+                         <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-yellow-500 rounded-full opacity-20 blur-2xl"></div>
+                        <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                             <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                             Altın Kurallar
+                        </h3>
+                        <ul class="space-y-4 text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <span class="bg-slate-700 p-1 rounded text-xs font-bold mt-1 text-white">1</span>
+                                <span>Önce pH'ı ayarla, sonra klor at. pH bozuksa klor çalışmaz.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="bg-slate-700 p-1 rounded text-xs font-bold mt-1 text-white">2</span>
+                                <span>Kimyasalları asla birbirine karıştırma. Ayrı ayrı ve sırayla havuza at.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="bg-slate-700 p-1 rounded text-xs font-bold mt-1 text-white">3</span>
+                                <span>Kimyasalları akşam saatlerinde, havuz kullanımı bittikten sonra uygula.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="bg-slate-700 p-1 rounded text-xs font-bold mt-1 text-white">4</span>
+                                <span>Granül kimyasalları önce bir kovada erit, sonra havuza dök (Liner kaplamayı yakmamak için).</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Section -->
+    <section id="safety" class="py-20 container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center text-slate-800 mb-12">Güvenlik ve Depolama</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="p-6 border-2 border-dashed border-slate-200 rounded-xl hover:border-red-400 transition cursor-default">
+                <div class="text-4xl mb-4">🧤</div>
+                <h4 class="font-bold text-slate-700">Eldiven Kullan</h4>
+                <p class="text-xs text-slate-500 mt-2">Kimyasallara çıplak elle dokunma.</p>
+            </div>
+            <div class="p-6 border-2 border-dashed border-slate-200 rounded-xl hover:border-red-400 transition cursor-default">
+                <div class="text-4xl mb-4">👃</div>
+                <h4 class="font-bold text-slate-700">Soluma</h4>
+                <p class="text-xs text-slate-500 mt-2">Toz ve buharı doğrudan soluma.</p>
+            </div>
+            <div class="p-6 border-2 border-dashed border-slate-200 rounded-xl hover:border-red-400 transition cursor-default">
+                <div class="text-4xl mb-4">🔒</div>
+                <h4 class="font-bold text-slate-700">Kilitli Tut</h4>
+                <p class="text-xs text-slate-500 mt-2">Çocukların ulaşamayacağı yerde sakla.</p>
+            </div>
+            <div class="p-6 border-2 border-dashed border-slate-200 rounded-xl hover:border-red-400 transition cursor-default">
+                <div class="text-4xl mb-4">☀️</div>
+                <h4 class="font-bold text-slate-700">Serin Tut</h4>
+                <p class="text-xs text-slate-500 mt-2">Güneş ve nemden uzak depola.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-white py-12 text-center">
+        <div class="container mx-auto px-6">
+            <p class="text-slate-400 mb-4">&copy; 2023 HavuzRehberi. Tüm hakları saklıdır.</p>
+            <p class="text-xs text-slate-600 max-w-lg mx-auto">Bu web sayfası bilgilendirme amaçlıdır. Havuz kimyasallarını kullanırken üretici talimatlarına uyunuz. Yanlış kullanımdan doğacak sonuçlardan sorumluluk kabul edilmez.</p>
+        </div>
+    </footer>
+
+    <script>
+        function calculateDosage() {
+            const volume = parseFloat(document.getElementById('poolVolume').value);
+            const resultsDiv = document.getElementById('results');
+            
+            if (!volume || volume <= 0) {
+                alert('Lütfen geçerli bir havuz hacmi giriniz.');
+                return;
+            }
+
+            // Calculations based on typical average concentrations
+            // Chlorine (Granule %56): Approx 3-5g per m3 for daily/maintenance
+            const chlorine = Math.round(volume * 4); 
+            
+            // pH Minus: Approx 10g/m3 lowers pH by 0.1 (This varies greatly by alkalinity)
+            const phMinus = Math.round(volume * 10);
+            
+            // Algaecide: Maintenance dose approx 5-10ml per 10m3 (so 0.5-1ml per m3)
+            const algae = Math.round(volume * 1);
+
+            document.getElementById('chlorineResult').innerText = `${chlorine} gr`;
+            document.getElementById('phResult').innerText = `${phMinus} gr`;
+            document.getElementById('algaeResult').innerText = `${algae} ml`;
+            
+            resultsDiv.classList.remove('hidden');
+            
+            // Scroll to results slightly
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
